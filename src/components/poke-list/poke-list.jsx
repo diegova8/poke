@@ -8,7 +8,9 @@ const PokeList = ({ pokemon }) => {
   return (
     <div className="flex flex-col-reverse h-screen w-full">
       <div>
-        <h1 className="text-2xl text-center font-semibold">Pokedex</h1>
+        <h1 className="text-2xl text-center font-semibold font-pokemon">
+          Pokedex
+        </h1>
       </div>
       <div className="bg-red-400 rounded overflow-auto">
         <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
@@ -28,7 +30,7 @@ const PokeList = ({ pokemon }) => {
                         alt={pokemon.name}
                         className="w-5 h-5 mx-2 bg-gray-300 rounded-full flex-shrink-0"
                       ></img>
-                      <p className="leading-5 text-base font-medium text-white capitalize">
+                      <p className="leading-5 text-base font-medium text-white">
                         {pokemon.name}
                       </p>
                     </div>

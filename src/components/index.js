@@ -1,3 +1,9 @@
 export { default as PokeList } from "./poke-list/poke-list";
 export { default as Pokemon } from "./pokemon/pokemon";
 export { default as GradientContainer } from "./gradient-container/gradient-container";
+export { default as PokemonImage } from "./pokemon-image/pokemon-image";
+export { default as Types } from "./types/types";
+export { default as Stats } from "./stats/stats";
+export { default as Abilities } from "./abilities/abilities";
+export { default as Moves } from "./moves/moves";
+export { default as HeightWeight } from "./height-weight/height-weight";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { GradientContainer } from "..";
+import { PokemonImage, Types, Stats, Abilities, Moves, HeightWeight } from "..";
 
 /* eslint-disable react/prop-types */
 const Pokemon = () => {
@@ -20,59 +20,22 @@ const Pokemon = () => {
 
   const { name, abilities, height, weight, moves, stats, types } = pokemon;
   return (
-    <div className="flex flex-col items-center">
-      <img
-        src={pokemon.sprites?.other?.home?.front_default}
-        alt={name}
-        className="w-32 h-32"
-      />
-      <h2 className="text-2xl font-bold mb-2">{name}</h2>
-      <div className="flex min-w-[50%]">
-        <div className="w-1/2">
-          <GradientContainer>
-            <h3 className="text-xl font-bold mb-2">Abilities</h3>
-            <ul className="list-none">
-              {abilities?.map((ability) => (
-                <li key={ability.ability.name}>{ability.ability.name}</li>
-              ))}
-            </ul>
-          </GradientContainer>
-          <GradientContainer>
-            <h3 className="text-xl font-bold mb-2">Height</h3>
-            <p>{height}</p>
-            <h3 className="text-xl font-bold mb-2">Weight</h3>
-            <p>{weight}</p>
-          </GradientContainer>
-          <GradientContainer>
-            <h3 className="text-xl font-bold mb-2">Moves</h3>
-            <ul className="list-none">
-              {moves?.slice(0, 5).map((move) => (
-                <li key={move.move.name}>{move.move.name}</li>
-              ))}
-            </ul>
-          </GradientContainer>
+    <div className="flex flex-row w-full align-bottom">
+      <div className="w-1/2">
+        <PokemonImage
+          src={pokemon.sprites?.other?.home?.front_default}
+          name={name}
+        />
+      </div>
+      <div className="flex w-1/2 items-end">
+        <div className="w-1/2 px-5">
+          <Abilities abilities={abilities} />
+          <HeightWeight height={height} weight={weight} />
+          <Moves moves={moves} />
         </div>
-        <div className="w-1/2">
-          <GradientContainer>
-            <h3 className="text-xl font-bold mb-2">Stats</h3>
-            <ul className="list-none">
-              {stats?.map((stat) => (
-                <li key={stat.stat.name}>
-                  {stat.stat.name + ": " + stat.base_stat}
-                </li>
-              ))}
-            </ul>
-          </GradientContainer>
-          <GradientContainer>
-            <h3 className="text-xl font-bold mb-2">Types</h3>
-            <ul className="list-none flex flex-col gap-3.5">
-              {types?.map((type) => (
-                <li key={type.type.name}>
-                  <span className={`type ${type.type.name}`}></span>
-                </li>
-              ))}
-            </ul>
-          </GradientContainer>
+        <div className="w-1/2 px-5">
+          <Stats stats={stats} />
+          <Types types={types} />
         </div>
       </div>
     </div>

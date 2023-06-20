@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "pokemon";
+  src: url("./fonts/PokemonGb-RAeo.ttf") format("truetype"); /* Replace with the actual font file and format */
+  /* Add additional src lines for different font file formats if applicable */
+  /* For example:
+    src: url('./fonts/your-font-file.woff') format('woff');
+    src: url('./fonts/your-font-file.woff2') format('woff2');
+    */
+  /* Add any additional font properties if required */
+}

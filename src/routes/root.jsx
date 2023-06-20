@@ -13,7 +13,7 @@ export default function Root() {
   }, []);
 
   return (
-    <div className="container flex flex-row mx-auto h-screen max-[600px]:flex-col-reverse">
+    <div className="container flex flex-row mx-auto h-screen max-[600px]:flex-col-reverse items-center capitalize">
       <div className="side-bar overflow-auto w-1/5  max-[600px]:w-full max-[600px]:h-2/4 ">
         {" "}
         <PokeList pokemon={pokemon} />
