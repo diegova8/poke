@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Root from "./routes/root";
+import Index from "./routes/index";
 import ErrorPage from "./routes/error-page";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -14,9 +15,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/pokemon/:pokemonId",
-        element: <Pokemon />,
         errorElement: <ErrorPage />,
+        children: [
+          { index: true, element: <Index /> },
+          {
+            path: "/pokemon/:pokemonId",
+            element: <Pokemon />,
+            errorElement: <ErrorPage />,
+          },
+        ],
       },
     ],
   },
