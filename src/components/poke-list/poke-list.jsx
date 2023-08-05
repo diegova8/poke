@@ -1,9 +1,23 @@
 /* eslint-disable react/prop-types */
+import { useEffect } from "react";
+import { connect } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { getPokemonList } from "../../redux/actions/pokemonListActions";
 import { pokeball, black } from "../../assets";
 
-const PokeList = ({ pokemon }) => {
+const PokeList = ({ pokemonList, loading, error, getPokemonList }) => {
   const { pokemonId } = useParams();
+  useEffect(() => {
+    getPokemonList();
+  }, [getPokemonList]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="flex flex-col-reverse h-screen w-full">
@@ -14,9 +28,9 @@ const PokeList = ({ pokemon }) => {
       </div>
       <div className="bg-red-400 rounded overflow-auto">
         <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-          {pokemon &&
-            pokemon.map((pokemon) => (
-              <Link to={`pokemon/${pokemon.name}`} key={pokemon.name} s>
+          {pokemonList &&
+            pokemonList.map((pokemon) => (
+              <Link to={`pokemon/${pokemon.name}`} key={pokemon.name}>
                 <li
                   key={pokemon.name}
                   className={`${
@@ -44,4 +58,14 @@ const PokeList = ({ pokemon }) => {
   );
 };
 
-export default PokeList;
+const mapStateToProps = (state) => ({
+  pokemonList: state.pokemonList.pokemonList,
+  loading: state.pokemonList.loading,
+  error: state.pokemonList.error,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getPokemonList: () => dispatch(getPokemonList()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PokeList);

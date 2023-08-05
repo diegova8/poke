@@ -2,16 +2,7 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import PokeList from "./../components/poke-list/poke-list";
 
-//import { useLoaderData } from "react-router-dom";
-//import { getPokemon } from "./../services/pokemon-service";
-
-// export async function loader() {
-//   const pokemon = await getPokemon();
-//   return { pokemon };
-// }
-
 export default function Root() {
-  //const { pokemon } = useLoaderData();
   const [pokemonList, setPokemonList] = useState([]);
 
   useEffect(() => {
