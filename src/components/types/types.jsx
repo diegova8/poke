@@ -1,16 +1,16 @@
-import { GradientContainer } from "..";
 const Types = ({ types }) => {
   return (
-    <GradientContainer>
-      <h3 className="text-xl font-bold mb-2">Types</h3>
-      <ul className="list-none flex flex-col gap-3.5">
-        {types?.map((type) => (
-          <li key={type.type.name}>
-            <span className={`type ${type.type.name}`}></span>
-          </li>
-        ))}
-      </ul>
-    </GradientContainer>
+    <div className="flex flex-wrap gap-2">
+      {types?.map((type) => (
+        <div key={type.type.name} className="flex-1 min-w-[120px]">
+          <span
+            className={`type ${type.type.name} block px-3 py-2 rounded-lg text-white font-bold font-pokemon text-center text-sm capitalize border-2 border-gray-400`}
+          >
+            {type.type.name}
+          </span>
+        </div>
+      ))}
+    </div>
   );
 };
 

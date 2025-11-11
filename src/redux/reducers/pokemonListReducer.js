@@ -4,6 +4,9 @@ const initialState = {
   pokemonList: [],
   loading: false,
   error: null,
+  searchFilter: "",
+  typeFilter: "",
+  favorites: [],
 };
 
 const pokemonListReducer = (state = initialState, action) => {
@@ -24,6 +27,30 @@ const pokemonListReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case actionTypes.SET_SEARCH_FILTER:
+      return {
+        ...state,
+        searchFilter: action.payload,
+      };
+    case actionTypes.SET_TYPE_FILTER:
+      return {
+        ...state,
+        typeFilter: action.payload,
+      };
+    case actionTypes.TOGGLE_FAVORITE:
+      const updatedFavorites = state.favorites.includes(action.payload)
+        ? state.favorites.filter((id) => id !== action.payload)
+        : [...state.favorites, action.payload];
+      localStorage.setItem("pokemonFavorites", JSON.stringify(updatedFavorites));
+      return {
+        ...state,
+        favorites: updatedFavorites,
+      };
+    case actionTypes.LOAD_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload,
       };
     default:
       return state;

@@ -1,10 +1,14 @@
 const PokemonImage = ({ src, name }) => {
   return (
     <div>
-      <img src={src} alt={name} className="w-auto h-auto" />
-      <h2 className="text-3xl text-center font-bold font-pokemon mb-2">
-        {name}
-      </h2>
+      <img
+        src={src}
+        alt={name}
+        className="w-full max-w-xs h-auto mx-auto object-contain"
+        onError={(e) => {
+          e.target.src = "https://via.placeholder.com/256?text=Image+Not+Found";
+        }}
+      />
     </div>
   );
 };

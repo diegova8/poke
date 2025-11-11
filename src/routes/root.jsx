@@ -1,24 +1,16 @@
-import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import PokeList from "./../components/poke-list/poke-list";
 
 export default function Root() {
-  const [pokemonList, setPokemonList] = useState([]);
-
-  useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon/?limit=151")
-      .then((response) => response.json())
-      .then((data) => setPokemonList(data.results))
-      .catch((error) => console.log(error));
-  }, []);
-
   return (
-    <div className="container flex flex-row mx-auto h-screen max-[600px]:flex-col-reverse items-center capitalize">
-      <div className="side-bar overflow-auto w-1/5  max-[600px]:w-full max-[600px]:h-2/4 ">
-        {" "}
-        <PokeList pokemon={pokemonList} />
+    <div className="flex flex-row h-screen w-screen bg-gray-100 max-[600px]:flex-col">
+      {/* Pokemon List Sidebar */}
+      <div className="side-bar flex-shrink-0 w-1/4 h-full overflow-hidden max-[600px]:w-full max-[600px]:h-1/3 border-r-4 border-red-600">
+        <PokeList />
       </div>
-      <div className="main-content w-4/5 max-[600px]:w-full max-[600px]:h-2/4  max-[600px]:overflow-auto">
+
+      {/* Main Content Area */}
+      <div className="main-content flex-1 h-full overflow-auto max-[600px]:w-full max-[600px]:h-2/3">
         <Outlet />
       </div>
     </div>
