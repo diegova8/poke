@@ -33,7 +33,7 @@ const PokeList = ({
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full bg-red-500">
-        <div className="text-white text-2xl font-pokemon">Loading Pokedex...</div>
+        <div className="text-white text-lg md:text-2xl font-pokemon text-center px-4">Loading Pokedex...</div>
       </div>
     );
   }
@@ -41,7 +41,7 @@ const PokeList = ({
   if (error) {
     return (
       <div className="flex items-center justify-center h-full bg-red-500">
-        <div className="text-white text-2xl font-pokemon">Error: {error}</div>
+        <div className="text-white text-lg md:text-2xl font-pokemon text-center px-4">Error: {error}</div>
       </div>
     );
   }
@@ -57,50 +57,50 @@ const PokeList = ({
   });
 
   return (
-    <div className="flex flex-col h-screen w-full bg-red-500 border-8 border-red-600">
+    <div className="flex flex-col h-screen w-full bg-red-500 border-4 md:border-8 border-red-600">
       {/* Header */}
-      <div className="bg-gradient-to-r from-red-600 to-red-500 p-4 border-b-4 border-red-700">
-        <h1 className="text-4xl text-center font-bold font-pokemon text-white drop-shadow-lg">
+      <div className="bg-gradient-to-r from-red-600 to-red-500 p-2 md:p-4 border-b-4 border-red-700 flex-shrink-0">
+        <h1 className="text-2xl md:text-4xl text-center font-bold font-pokemon text-white drop-shadow-lg">
           POKÉDEX
         </h1>
-        <p className="text-center text-white text-sm font-pokemon mt-2">
-          Version 1.0 - Generation I
+        <p className="text-center text-white text-xs md:text-sm font-pokemon mt-1 md:mt-2">
+          Version 1.0 - Gen I
         </p>
       </div>
 
       {/* Search and Filter */}
-      <div className="bg-red-400 p-4 border-b-4 border-red-600 space-y-3">
+      <div className="bg-red-400 p-2 md:p-4 border-b-4 border-red-600 space-y-2 md:space-y-3 flex-shrink-0">
         <input
           type="text"
-          placeholder="Search Pokémon..."
+          placeholder="Search..."
           value={searchFilter}
           onChange={(e) => setSearchFilter(e.target.value)}
-          className="w-full px-4 py-2 border-4 border-red-600 rounded font-pokemon bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-yellow-300"
+          className="w-full px-3 md:px-4 py-2 border-2 md:border-4 border-red-600 rounded font-pokemon text-sm md:text-base bg-white text-gray-800 focus:outline-none focus:ring-4 focus:ring-yellow-300"
         />
         <div className="flex gap-2">
           <button
             onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
-            className={`flex-1 px-3 py-2 border-4 rounded font-pokemon font-bold transition ${
+            className={`flex-1 px-2 md:px-3 py-2 border-2 md:border-4 rounded font-pokemon font-bold text-xs md:text-sm transition ${
               showFavoritesOnly
                 ? "bg-yellow-300 border-yellow-600 text-red-600"
                 : "bg-white border-red-600 text-red-600 hover:bg-gray-100"
             }`}
           >
-            ★ Favorites ({favorites.length})
+            ★ ({favorites.length})
           </button>
         </div>
       </div>
 
       {/* Pokemon Grid */}
       <div className="flex-1 overflow-auto bg-red-400">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 p-4">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3 p-2 md:p-4">
           {filteredList.map((pokemon) => (
             <Link to={`pokemon/${pokemon.name}`} key={pokemon.id}>
               <div
-                className={`relative bg-white rounded-lg border-4 p-3 cursor-pointer transition transform hover:scale-105 hover:shadow-lg ${
+                className={`relative bg-white rounded border-2 md:border-4 p-2 md:p-3 cursor-pointer transition transform active:scale-95 md:hover:scale-105 md:hover:shadow-lg ${
                   pokemonId === pokemon.name
                     ? "border-yellow-400 bg-yellow-50"
-                    : "border-red-500 hover:border-yellow-400"
+                    : "border-red-500 md:hover:border-yellow-400"
                 }`}
               >
                 {/* Star for Favorite */}
@@ -109,17 +109,17 @@ const PokeList = ({
                     e.preventDefault();
                     toggleFavorite(pokemon.id);
                   }}
-                  className={`absolute top-1 right-1 text-xl transition ${
+                  className={`absolute top-0.5 right-0.5 text-lg md:text-xl transition active:scale-75 ${
                     favorites.includes(pokemon.id)
                       ? "text-yellow-400"
-                      : "text-gray-300 hover:text-yellow-400"
+                      : "text-gray-300 md:hover:text-yellow-400"
                   }`}
                 >
                   ★
                 </button>
 
                 {/* Pokemon Image */}
-                <div className="flex justify-center mb-2 h-24">
+                <div className="flex justify-center mb-1 md:mb-2 h-16 md:h-24">
                   <img
                     src={pokemon.image}
                     alt={pokemon.name}
@@ -132,10 +132,10 @@ const PokeList = ({
 
                 {/* Pokemon Info */}
                 <div className="text-center">
-                  <p className="text-xs font-pokemon text-gray-600">
+                  <p className="text-xs font-pokemon text-gray-600 leading-tight">
                     #{String(pokemon.id).padStart(3, "0")}
                   </p>
-                  <p className="text-sm font-bold font-pokemon text-gray-800 capitalize">
+                  <p className="text-xs md:text-sm font-bold font-pokemon text-gray-800 capitalize leading-tight">
                     {pokemon.name}
                   </p>
                 </div>
@@ -145,7 +145,7 @@ const PokeList = ({
         </div>
         {filteredList.length === 0 && (
           <div className="flex items-center justify-center h-full">
-            <p className="text-white text-lg font-pokemon">No Pokémon found</p>
+            <p className="text-white text-sm md:text-lg font-pokemon text-center px-4">No Pokémon found</p>
           </div>
         )}
       </div>

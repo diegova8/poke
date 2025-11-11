@@ -72,7 +72,7 @@ const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full w-full bg-gradient-to-b from-red-500 to-red-400">
-        <div className="text-white text-2xl font-pokemon">Loading...</div>
+        <div className="text-white text-lg md:text-2xl font-pokemon text-center px-4">Loading...</div>
       </div>
     );
   }
@@ -80,7 +80,7 @@ const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
   if (!pokemon) {
     return (
       <div className="flex items-center justify-center h-full w-full bg-gradient-to-b from-red-500 to-red-400">
-        <div className="text-white text-2xl font-pokemon">Pokémon not found</div>
+        <div className="text-white text-lg md:text-2xl font-pokemon text-center px-4">Pokémon not found</div>
       </div>
     );
   }
@@ -92,35 +92,35 @@ const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
   const isFavorite = favorites.includes(id);
 
   return (
-    <div className="w-full h-full overflow-auto bg-gradient-to-b from-red-500 via-red-400 to-yellow-100 p-6">
+    <div className="w-full h-full overflow-auto bg-gradient-to-b from-red-500 via-red-400 to-yellow-100 p-2 md:p-6">
       {/* Main Container */}
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl border-8 border-red-600 shadow-2xl overflow-hidden">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg md:rounded-2xl border-4 md:border-8 border-red-600 shadow-lg md:shadow-2xl overflow-hidden">
         {/* Header Bar */}
-        <div className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-4 flex items-center justify-between border-b-4 border-red-700">
+        <div className="bg-gradient-to-r from-red-600 to-red-500 px-2 md:px-6 py-2 md:py-4 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0 border-b-4 border-red-700">
           <button
             onClick={handlePreviousPokemon}
             disabled={getCurrentPokemonIndex() <= 0}
-            className={`px-4 py-2 font-bold font-pokemon rounded border-2 transition ${
+            className={`px-2 md:px-4 py-1 md:py-2 text-xs md:text-sm font-bold font-pokemon rounded border-2 transition active:scale-95 ${
               getCurrentPokemonIndex() <= 0
                 ? "border-gray-400 text-gray-400 cursor-not-allowed"
-                : "border-white text-white hover:bg-red-700"
+                : "border-white text-white md:hover:bg-red-700"
             }`}
           >
             ← Prev
           </button>
 
-          <div>
-            <p className="text-white text-sm font-pokemon">Pokémon #</p>
-            <h1 className="text-4xl font-bold font-pokemon text-white capitalize drop-shadow-lg">
+          <div className="text-center flex-1">
+            <p className="text-white text-xs md:text-sm font-pokemon">Pokémon #</p>
+            <h1 className="text-xl md:text-4xl font-bold font-pokemon text-white capitalize drop-shadow-lg">
               {name}
             </h1>
           </div>
 
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-2 md:gap-4 items-center">
             <button
               onClick={() => toggleFavorite(id)}
-              className={`text-5xl transition transform hover:scale-110 ${
-                isFavorite ? "text-yellow-300" : "text-gray-300 hover:text-yellow-300"
+              className={`text-3xl md:text-5xl transition transform active:scale-75 md:hover:scale-110 ${
+                isFavorite ? "text-yellow-300" : "text-gray-300 md:hover:text-yellow-300"
               }`}
             >
               ★
@@ -128,10 +128,10 @@ const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
             <button
               onClick={handleNextPokemon}
               disabled={getCurrentPokemonIndex() >= pokemonList.length - 1}
-              className={`px-4 py-2 font-bold font-pokemon rounded border-2 transition ${
+              className={`px-2 md:px-4 py-1 md:py-2 text-xs md:text-sm font-bold font-pokemon rounded border-2 transition active:scale-95 ${
                 getCurrentPokemonIndex() >= pokemonList.length - 1
                   ? "border-gray-400 text-gray-400 cursor-not-allowed"
-                  : "border-white text-white hover:bg-red-700"
+                  : "border-white text-white md:hover:bg-red-700"
               }`}
             >
               Next →
@@ -140,11 +140,11 @@ const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
         </div>
 
         {/* Pokemon ID and Stats Row */}
-        <div className="bg-red-100 px-6 py-3 border-b-2 border-red-300 flex items-center justify-between font-pokemon">
-          <span className="text-2xl font-bold text-red-600">
+        <div className="bg-red-100 px-3 md:px-6 py-2 md:py-3 border-b-2 border-red-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 font-pokemon">
+          <span className="text-lg md:text-2xl font-bold text-red-600">
             #{String(id).padStart(3, "0")}
           </span>
-          <div className="flex gap-4">
+          <div className="flex gap-4 md:gap-4 text-sm">
             <div className="text-center">
               <p className="text-xs text-gray-600">Height</p>
               <p className="font-bold text-gray-800">{(height / 10).toFixed(1)} m</p>
@@ -157,11 +157,11 @@ const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 p-3 md:p-6">
           {/* Left Column - Image and Types */}
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {/* Image */}
-            <div className="bg-gradient-to-b from-blue-200 to-blue-100 rounded-xl border-4 border-red-400 p-4 text-center">
+            <div className="bg-gradient-to-b from-blue-200 to-blue-100 rounded-lg md:rounded-xl border-2 md:border-4 border-red-400 p-2 md:p-4 text-center">
               <PokemonImage
                 src={pokemon.sprites?.other?.['official-artwork']?.front_default || pokemon.sprites?.front_default}
                 name={name}
@@ -170,30 +170,30 @@ const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
 
             {/* Types */}
             <div>
-              <h3 className="text-lg font-bold font-pokemon text-red-600 mb-2">Type</h3>
+              <h3 className="text-base md:text-lg font-bold font-pokemon text-red-600 mb-2">Type</h3>
               <Types types={types} />
             </div>
 
             {/* Description */}
-            <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-3">
-              <h3 className="text-sm font-bold font-pokemon text-red-600 mb-2">Pokédex Entry</h3>
-              <p className="text-sm text-gray-700 leading-relaxed font-mono italic">
+            <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-2 md:p-3">
+              <h3 className="text-xs md:text-sm font-bold font-pokemon text-red-600 mb-2">Pokédex Entry</h3>
+              <p className="text-xs md:text-sm text-gray-700 leading-relaxed font-mono italic">
                 {description}
               </p>
             </div>
           </div>
 
           {/* Right Column - Stats and Abilities */}
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {/* Stats */}
             <div>
-              <h3 className="text-lg font-bold font-pokemon text-red-600 mb-3">Base Stats</h3>
+              <h3 className="text-base md:text-lg font-bold font-pokemon text-red-600 mb-3">Base Stats</h3>
               <Stats stats={stats} />
             </div>
 
             {/* Abilities */}
             <div>
-              <h3 className="text-lg font-bold font-pokemon text-red-600 mb-2">Abilities</h3>
+              <h3 className="text-base md:text-lg font-bold font-pokemon text-red-600 mb-2">Abilities</h3>
               <Abilities abilities={abilities} />
             </div>
           </div>
@@ -201,20 +201,20 @@ const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
 
         {/* Evolution Chain */}
         {evolutions.length > 1 && (
-          <div className="border-t-4 border-red-300 px-6 py-4 bg-gradient-to-r from-pink-50 to-red-50">
-            <h3 className="text-lg font-bold font-pokemon text-red-600 mb-3">
+          <div className="border-t-4 border-red-300 px-3 md:px-6 py-3 md:py-4 bg-gradient-to-r from-pink-50 to-red-50">
+            <h3 className="text-base md:text-lg font-bold font-pokemon text-red-600 mb-3">
               Evolution Chain
             </h3>
-            <div className="flex items-center justify-center gap-4 flex-wrap">
+            <div className="flex items-center justify-center gap-2 md:gap-4 flex-wrap">
               {evolutions.map((evo, index) => (
-                <div key={evo} className="flex items-center gap-4">
-                  <div className="bg-white border-2 border-red-400 rounded-lg px-4 py-2 text-center">
-                    <p className="text-sm font-pokemon font-bold capitalize text-gray-800">
+                <div key={evo} className="flex items-center gap-2 md:gap-4">
+                  <div className="bg-white border-2 border-red-400 rounded-lg px-2 md:px-4 py-2 text-center">
+                    <p className="text-xs md:text-sm font-pokemon font-bold capitalize text-gray-800">
                       {evo}
                     </p>
                   </div>
                   {index < evolutions.length - 1 && (
-                    <div className="text-red-600 text-2xl font-bold">→</div>
+                    <div className="text-red-600 text-lg md:text-2xl font-bold">→</div>
                   )}
                 </div>
               ))}
@@ -223,8 +223,8 @@ const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
         )}
 
         {/* Moves */}
-        <div className="border-t-4 border-red-300 px-6 py-4">
-          <h3 className="text-lg font-bold font-pokemon text-red-600 mb-3">Moves</h3>
+        <div className="border-t-4 border-red-300 px-3 md:px-6 py-3 md:py-4">
+          <h3 className="text-base md:text-lg font-bold font-pokemon text-red-600 mb-3">Moves</h3>
           <Moves moves={moves} />
         </div>
       </div>
