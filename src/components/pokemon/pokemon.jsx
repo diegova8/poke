@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { PokemonImage, Types, Stats, Abilities, Moves } from "..";
 import { connect } from "react-redux";
 import { toggleFavorite } from "../../redux/actions/pokemonListActions";
 
 /* eslint-disable react/prop-types */
-const Pokemon = ({ favorites, toggleFavorite }) => {
+const Pokemon = ({ favorites, pokemonList, toggleFavorite }) => {
   const [pokemon, setPokemon] = useState(null);
   const [species, setSpecies] = useState(null);
   const [evolutions, setEvolutions] = useState([]);
   const [loading, setLoading] = useState(true);
   let { pokemonId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -50,6 +51,24 @@ const Pokemon = ({ favorites, toggleFavorite }) => {
     return evolutions;
   };
 
+  const getCurrentPokemonIndex = () => {
+    return pokemonList.findIndex((p) => p.name === pokemonId);
+  };
+
+  const handleNextPokemon = () => {
+    const currentIndex = getCurrentPokemonIndex();
+    if (currentIndex < pokemonList.length - 1) {
+      navigate(`/pokemon/${pokemonList[currentIndex + 1].name}`);
+    }
+  };
+
+  const handlePreviousPokemon = () => {
+    const currentIndex = getCurrentPokemonIndex();
+    if (currentIndex > 0) {
+      navigate(`/pokemon/${pokemonList[currentIndex - 1].name}`);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full w-full bg-gradient-to-b from-red-500 to-red-400">
@@ -78,20 +97,46 @@ const Pokemon = ({ favorites, toggleFavorite }) => {
       <div className="max-w-4xl mx-auto bg-white rounded-2xl border-8 border-red-600 shadow-2xl overflow-hidden">
         {/* Header Bar */}
         <div className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-4 flex items-center justify-between border-b-4 border-red-700">
+          <button
+            onClick={handlePreviousPokemon}
+            disabled={getCurrentPokemonIndex() <= 0}
+            className={`px-4 py-2 font-bold font-pokemon rounded border-2 transition ${
+              getCurrentPokemonIndex() <= 0
+                ? "border-gray-400 text-gray-400 cursor-not-allowed"
+                : "border-white text-white hover:bg-red-700"
+            }`}
+          >
+            ← Prev
+          </button>
+
           <div>
             <p className="text-white text-sm font-pokemon">Pokémon #</p>
             <h1 className="text-4xl font-bold font-pokemon text-white capitalize drop-shadow-lg">
               {name}
             </h1>
           </div>
-          <button
-            onClick={() => toggleFavorite(id)}
-            className={`text-5xl transition transform hover:scale-110 ${
-              isFavorite ? "text-yellow-300" : "text-gray-300 hover:text-yellow-300"
-            }`}
-          >
-            ★
-          </button>
+
+          <div className="flex gap-4 items-center">
+            <button
+              onClick={() => toggleFavorite(id)}
+              className={`text-5xl transition transform hover:scale-110 ${
+                isFavorite ? "text-yellow-300" : "text-gray-300 hover:text-yellow-300"
+              }`}
+            >
+              ★
+            </button>
+            <button
+              onClick={handleNextPokemon}
+              disabled={getCurrentPokemonIndex() >= pokemonList.length - 1}
+              className={`px-4 py-2 font-bold font-pokemon rounded border-2 transition ${
+                getCurrentPokemonIndex() >= pokemonList.length - 1
+                  ? "border-gray-400 text-gray-400 cursor-not-allowed"
+                  : "border-white text-white hover:bg-red-700"
+              }`}
+            >
+              Next →
+            </button>
+          </div>
         </div>
 
         {/* Pokemon ID and Stats Row */}
@@ -189,6 +234,7 @@ const Pokemon = ({ favorites, toggleFavorite }) => {
 
 const mapStateToProps = (state) => ({
   favorites: state.pokemonList.favorites,
+  pokemonList: state.pokemonList.pokemonList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
